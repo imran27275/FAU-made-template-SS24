@@ -6,16 +6,14 @@ pipeline AirportPipeline {
     -> AirportTableInterpreter
     -> AirportLoader;
     
-
-
     block AirportTextFileInterpreter oftype TextFileInterpreter {}
 
     block AirportCSVInterpreter oftype CSVInterpreter {
-        delimiter:";";
+        delimiter: ";";
     }
 
     block AirportExtractor oftype HttpExtractor {
-        url:"https://opendata.rhein-kreis-neuss.de/api/v2/catalog/datasets/rhein-kreis-neuss-flughafen-weltweit/exports/csv";
+        url: "https://opendata.rhein-kreis-neuss.de/api/explore/v2.1/catalog/datasets/rhein-kreis-neuss-flughafen-weltweit/exports/csv?lang=en&timezone=Europe%2FBerlin&use_labels=true&delimiter=%3B";
     }
 
     block AirportTableInterpreter oftype TableInterpreter {
@@ -35,7 +33,6 @@ pipeline AirportPipeline {
             "Zeitzonen-Datenbank" oftype text,
             "geo_punkt" oftype text
         ];
-
     } 
 
     block AirportLoader oftype SQLiteLoader {
