@@ -4,7 +4,7 @@
 
 Assessing the Effects of mountains show depth on air temperature.
 
-## Main Questions
+## Main Question
 
 How mountains snow affected by air temperature?
 
