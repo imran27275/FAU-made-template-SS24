@@ -19,7 +19,7 @@ pipeline GoodsPipeline {
     }
 
     block GoodsTextRangeSelector oftype TextRangeSelector { 
-        lineFrom: 9; lineTo: 41336; 
+        lineFrom: 8; lineTo: 41336; 
     }
 
     
@@ -40,7 +40,7 @@ pipeline GoodsPipeline {
     }
 
     valuetype GoodsId oftype text { 
-        constraints: [GoodsIdFormat,]; 
+        constraints: [GoodsIdFormat]; 
     }
     
 
@@ -49,7 +49,7 @@ pipeline GoodsPipeline {
     }
 
     valuetype ValidMonth oftype text {
-        constraints: [ValidMonthFormat,];
+        constraints: [ValidMonthFormat];
     }
 
     transform convertUppercaseJanuar {
