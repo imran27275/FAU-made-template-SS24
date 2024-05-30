@@ -6,6 +6,8 @@ pipeline GoodsPipeline {
     -> GoodsHeaderName_AtoE
     -> GoodsHeaderName_ATtoAU
     -> GoodsTableInterpreter
+    -> convertUppercaseJanuar
+    -> convertUppercaseFebruar
     -> GoodsLoader;
     
     block GoodsTextFileInterpreter oftype TextFileInterpreter {
@@ -40,6 +42,37 @@ pipeline GoodsPipeline {
         constraints: [GoodsIdFormat]; 
     }
     
+
+    constraint ValidMonthFormat oftype RegexConstraint {
+        regex: /\b(Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\b/;
+    }
+
+    valuetype ValidMonth oftype text {
+        constraints: [ValidMonthFormat];
+    }
+
+    transform convertUppercaseJanuar {
+        from inputName oftype text;
+        to outputName oftype text;
+        outputName: inputName replace /Januar/ with 'JANUAR' ;
+    }
+
+    block convertUppercaseJanuar oftype TableTransformer{
+        inputColumns: ['month'];
+        outputColumn: 'month';
+        use: convertUppercaseJanuar;
+    }
+
+    transform convertUppercaseFebruar{
+        from inputName oftype text;
+        to outputName oftype text;
+        outputName: inputName replace /Februar/ with 'FEBRUAR';
+    }
+    block convertUppercaseFebruar oftype TableTransformer{
+        inputColumns: ['month'];
+        outputColumn: 'month';
+        use: convertUppercaseFebruar;
+    }
     
     constraint PositiveRange oftype RangeConstraint { 
         lowerBound: 0; lowerBoundInclusive: false;
@@ -52,7 +85,7 @@ pipeline GoodsPipeline {
         header: true;
         columns:[
             "year" oftype PositiveInteger,
-            "month" oftype text,
+            "month" oftype ValidMonth,
             "goods_id" oftype GoodsId,
             "goods_name" oftype text,
             "goods_source" oftype text,
