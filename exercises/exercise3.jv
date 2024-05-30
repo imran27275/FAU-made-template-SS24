@@ -30,6 +30,7 @@ pipeline GoodsPipeline {
     block GoodsHeaderName_AtoE oftype CellWriter { 
         at: range A1:E1; write: ["year", "month", "goods_id", "goods_name", "goods_source"]; 
     }
+
     block GoodsHeaderName_ATtoAU oftype CellWriter { 
         at: range AT1:AU1; write: ["abroad", "total"];
     }
@@ -39,7 +40,7 @@ pipeline GoodsPipeline {
     }
 
     valuetype GoodsId oftype text { 
-        constraints: [GoodsIdFormat]; 
+        constraints: [GoodsIdFormat,]; 
     }
     
 
@@ -48,7 +49,7 @@ pipeline GoodsPipeline {
     }
 
     valuetype ValidMonth oftype text {
-        constraints: [ValidMonthFormat];
+        constraints: [ValidMonthFormat,];
     }
 
     transform convertUppercaseJanuar {
@@ -97,6 +98,5 @@ pipeline GoodsPipeline {
     block GoodsLoader oftype SQLiteLoader {
         table: "goods";
         file: "./goodsTransportedByTrain.sqlite";
-    }
-
+    }
 }
