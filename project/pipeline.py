@@ -35,7 +35,7 @@ class ProjectPipeline:
         if 'sme2_sd_mm' in df.columns:
             df.rename(columns={'sme2_sd_mm': 'sme2 snow depth in millimeters'}, inplace=True)
         if 'smf1_sd_mm' in df.columns:
-            df.rename(columns={'smf1_sd_mm': 'sm1 snow depth in millimeters'}, inplace=True)
+            df.rename(columns={'smf1_sd_mm': 'smf1 snow depth in millimeters'}, inplace=True)
         if 'smg1_sd_mm' in df.columns:
             df.rename(columns={'smg1_sd_mm': 'smg1 snow depth in millimeters'}, inplace=True)
         if 'smg2_sd_mm' in df.columns:
@@ -47,7 +47,7 @@ class ProjectPipeline:
 
         # Merge "month", "day", and "calendar_year" columns into a single "date" column
         if all(col in df.columns for col in ['month', 'day', 'calendar_year']):
-            df['date'] = pd.to_datetime(df[['calendar_year', 'month', 'day']].astype(str).agg('-'.join, axis=1), format='%Y-%m-%d').dt.strftime('%d-%m-%Y')
+            df['date'] = pd.to_datetime(df[['calendar_year', 'month', 'day']].astype(str).agg('-'.join, axis=1), format='%Y-%m-%d').dt.strftime('%m-%d-%Y')
             df.drop(columns=['month', 'day', 'calendar_year'], inplace=True)
             # Move the "date" column to the first position
             cols = ['date'] + [col for col in df if col != 'date']
