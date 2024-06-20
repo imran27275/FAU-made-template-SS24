@@ -1,0 +1,65 @@
+pipeline Bus_Pipeline {
+
+    Data_Extractor
+    -> Unzipper
+    -> File_Picker
+    -> Text_File_Interpreter
+    -> CSV_Interpreter
+    -> Table_Interpreter
+    -> Sqlite_Loader
+    ;
+
+    block Data_Extractor oftype HttpExtractor {	
+        url: "https://gtfs.rhoenenergie-bus.de/GTFS.zip";
+    }	
+
+    block Unzipper oftype ArchiveInterpreter {
+	    archiveType: "zip";
+	}
+
+    block File_Picker oftype FilePicker {
+	    path: "/stops.txt";
+	}
+
+    block Text_File_Interpreter oftype TextFileInterpreter {
+	}
+
+	block CSV_Interpreter oftype CSVInterpreter {
+        enclosing:'"';
+        enclosingEscape: '"';
+	}
+
+    block Table_Interpreter oftype TableInterpreter {
+        header: true;
+        columns: [
+            "stop_id" oftype integer,
+            "stop_name" oftype text,
+            "stop_lat" oftype Coordinate ,
+            "stop_lon" oftype Coordinate,
+            "zone_id" oftype Stop,
+        ];
+    }
+
+	block Sqlite_Loader oftype SQLiteLoader {
+	table: "stops";
+	file: "gtfs.sqlite";
+	}
+} 
+
+valuetype Coordinate oftype decimal {
+    constraints: [Range_Coordinate];
+}
+
+constraint Range_Coordinate oftype RangeConstraint {
+    lowerBound:-90;
+    upperBound: 90;
+}
+
+valuetype Stop oftype integer {
+    constraints: [Check_Stop];
+}
+
+constraint Check_Stop oftype RangeConstraint{
+    lowerBound: 1645;
+    upperBound: 1645;
+}
