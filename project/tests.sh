@@ -1,2 +1,3 @@
 #!/bin/bash
-python3 automated_testing.py"
+
+python3 automated_testing.py
