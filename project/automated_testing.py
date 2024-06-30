@@ -1,6 +1,6 @@
 import sqlite3
 import pandas
-from pipeline import save_to_sqlite,run
+from project.pipeline import save_to_sqlite,run
 
 def check_database():
     try:
