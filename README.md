@@ -72,7 +72,7 @@ python automated_testing.py
 
 ## Authors and Acknowledgment
 
-This project was initiated and completed by Prem Prakash Singh.
+This project was initiated and completed by Md Imran Hossain.
 
 ## Special Thanks to Our Tutors
 
