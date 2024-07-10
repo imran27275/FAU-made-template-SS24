@@ -55,7 +55,9 @@ We have developed a comprehensive test script to ensure the accuracy and efficie
 ### Automated Workflow [here](.github/workflows/automated-testing-CI.yml)
 
 To maintain the quality and reliability of our pipeline, we have set up an automated workflow using GitHub Actions. This workflow includes:
-- **Continuous Integration Tests** : Runs our test script automatically every time there is a push to the main branch. This ensures that any new changes do not disrupt the pipeline's functionality.  
+
+- Continuous Integration Tests: Runs our test script automatically every time there is a push to the main branch. This ensures that any new changes do not disrupt the pipeline's functionality.
+
 This automated workflow helps in maintaining a robust and error-free data pipeline, ensuring the high quality of our project deliverables.
 
 ## How to Run the Data Pipeline and Tests
